@@ -26,3 +26,6 @@ connect4.o: connect4.cpp board.h Ltexture.h
 
 texture.o: texture.cpp texture.h
 	$(CC) -c texture.cpp
+
+SDLHelper.o: SDLHelper.cpp SDLHelper.h
+	$(CC) -c SDLHelper.cpp
