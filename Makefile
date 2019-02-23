@@ -12,20 +12,27 @@ COMPILER_FLAGS = -w
 LINKER_FLAGS = -lSDL2 -lSDL2_image
 
 #OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = connect4
+OBJ_NAME = loop
 
 #This is the target that compiles our executable
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-connect4: connect4.o board.o Ltexture.o
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) connect4.o board.o Ltexture.o
+loop: loop.o texture.o SDLHelper.o animationtest.o spriteSheet.o
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) loop.o texture.o SDLHelper.o animationtest.o spriteSheet.o
 
-connect4.o: connect4.cpp board.h Ltexture.h
-	$(CC) -c connect4.cpp
+loop.o: loop.cpp texture.h SDLHelper.h animationtest.h spriteSheet.h
+	$(CC) -c loop.cpp
 
 texture.o: texture.cpp texture.h
 	$(CC) -c texture.cpp
 
-SDLHelper.o: SDLHelper.cpp SDLHelper.h
+SDLHelper.o: SDLHelper.cpp SDLHelper.h texture.h
 	$(CC) -c SDLHelper.cpp
+
+spriteSheet.o: spriteSheet.cpp spriteSheet.h
+	$(CC) -c spriteSheet.cpp
+
+animationTest.o: animationTest.cp animationTest.h
+	$(CC) -c animationTest.cpp
+

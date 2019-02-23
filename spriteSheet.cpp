@@ -6,35 +6,42 @@
 SpriteSheet::SpriteSheet()
 {
 	//Initialize
-	mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;
+	texture = nullptr;
+	spriteWidth = 0;
+	spriteHeight = 0;
 }
 
 SpriteSheet::~SpriteSheet()
 {
 	//Deallocate texture
-  mTexture.~Texture();
+  texture->~Texture();
 }
 
-bool SpriteSheet::loadFromFile( std::string path, SDL_Renderer* renderer)
+bool SpriteSheet::loadFromFile(std::string path, SDL_Renderer* renderer, int num_sprites)
 {
-  Texture mTexture();
-  mTexture.loadFromFile(path, renderer);
+  texture = new Texture();
+  bool success = texture->loadFromFile(path, renderer);
+  if (success){
+    numSprites = num_sprites;
+    spriteWidth = texture->getWidth() / numSprites;
+    spriteHeight = texture->getHeight();
+  }
+  return success;
 }
 
-void SpriteSheet::renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber)
+void SpriteSheet::renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int frameNumber)
 {
-  SDL_Rect coords = { spriteNumber * mWidth, 0, mWidth, mHeight };
-  mTexture.render(screenX, screenY, renderer, coords);
+  int spriteNumber = frameNumber % numSprites;
+  SDL_Rect coords = { spriteNumber * spriteWidth, 0, spriteWidth, spriteHeight };
+  texture->render(screenX, screenY, renderer, &coords);
 }
 
 int SpriteSheet::getWidth()
 {
-	return mWidth;
+	return spriteWidth;
 }
 
 int SpriteSheet::getHeight()
 {
-	return mHeight;
+	return spriteHeight;
 }

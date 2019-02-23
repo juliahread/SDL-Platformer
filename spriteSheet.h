@@ -1,9 +1,10 @@
-#ifndef TEXTURE_HEADER
-#define TEXTURE_HEADER
+#ifndef SPRITE_SHEET_HEADER
+#define SPRITE_SHEET_HEADER
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include "texture.h"
 
 class SpriteSheet
 {
@@ -15,7 +16,7 @@ public:
   ~SpriteSheet();
 
   //Loads image at specified path
-  bool loadFromFile( std::string path, SDL_Renderer* renderer);
+  bool loadFromFile( std::string path, SDL_Renderer* renderer, int num_sprites);
 
   //Renders texture at given point
   void renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
@@ -25,11 +26,13 @@ public:
   int getHeight();
 
 private:
-  //The actual hardware texture
-  SDL_Texture* mTexture;
+  //Texture wrapper class
+  Texture *texture;
 
   //Sprite size
-  int mWidth;
-  int mHeight;
+  int spriteWidth;
+  int spriteHeight;
+
+  int numSprites;
 };
 #endif
