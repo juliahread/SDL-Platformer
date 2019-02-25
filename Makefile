@@ -18,8 +18,8 @@ OBJ_NAME = platformer
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-platformer: platformer.o texture.o SDLHelper.o obstacles.o spriteSheet.o
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) platformer.o texture.o SDLHelper.o obstacles.o spriteSheet.o
+platformer: platformer.o texture.o SDLHelper.o obstacles.o spriteSheet.o animationTest.o
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) platformer.o texture.o SDLHelper.o obstacles.o spriteSheet.o animationTest.o
 
 platformer.o: platformer.cpp texture.h SDLHelper.h obstacles.h spriteSheet.h
 	$(CC) -c platformer.cpp

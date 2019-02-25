@@ -8,9 +8,15 @@ AnimationTest::AnimationTest(SpriteSheet *sheet1){
   sheet = sheet1;
   frame_number = 0;
 }
+
 AnimationTest::~AnimationTest(){
 }
 
-void AnimationTest::render(SDL_Renderer *renderer){
-  sheet->renderSprite(0, 0, renderer, frame_number++);
+void AnimationTest::render(int x, int y, SDL_Renderer *renderer, int iteration){
+  if (iteration == 2) {
+    sheet->renderSprite(x, y, renderer, frame_number++);
+  }
+  else {
+    sheet->renderSprite(x, y, renderer, frame_number);
+  }
 }

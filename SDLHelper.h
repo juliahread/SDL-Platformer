@@ -11,6 +11,8 @@ public:
   ~SDLHelper();
   SDL_Window *window;
   SDL_Renderer *renderer;
+  int getScreenWidth();
+  int getScreenHeight();
 private:
   bool init();
   void close();

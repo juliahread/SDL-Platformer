@@ -5,8 +5,8 @@
 #include <stdexcept>
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 700; //TODO: choose screen size
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_WIDTH = 1026;
+const int SCREEN_HEIGHT = 540;
 const char *WINDOW_NAME = "platformer";
 
 SDLHelper::SDLHelper(){
@@ -85,4 +85,12 @@ void SDLHelper::close()
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
+}
+
+int SDLHelper::getScreenWidth() {
+  return SCREEN_WIDTH;
+}
+
+int SDLHelper::getScreenHeight() {
+  return SCREEN_HEIGHT;
 }

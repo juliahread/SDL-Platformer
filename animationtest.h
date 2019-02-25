@@ -8,7 +8,7 @@ class AnimationTest{
 public:
   AnimationTest(SpriteSheet *sheet1);
   ~AnimationTest();
-  void render(SDL_Renderer *renderer);
+  void render(int x, int y, SDL_Renderer *renderer, int iteration);
 private:
   SpriteSheet *sheet;
   int frame_number;
