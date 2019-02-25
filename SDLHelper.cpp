@@ -5,9 +5,9 @@
 #include <stdexcept>
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 37; //TODO: choose screen size
-const int SCREEN_HEIGHT = 50;
-const char *WINDOW_NAME = "blob";
+const int SCREEN_WIDTH = 700; //TODO: choose screen size
+const int SCREEN_HEIGHT = 600;
+const char *WINDOW_NAME = "platformer";
 
 SDLHelper::SDLHelper(){
   bool initialized = SDLHelper::init();

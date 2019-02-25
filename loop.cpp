@@ -41,7 +41,7 @@ int main()
       blob.render(helper.renderer);
       //Update screen
       SDL_RenderPresent( helper.renderer);
-      SDL_Delay(100);
+      SDL_Delay(75);
 
     }
 

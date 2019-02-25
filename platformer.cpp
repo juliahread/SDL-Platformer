@@ -3,8 +3,8 @@
 #include <string>
 #include "texture.h"
 #include "SDLHelper.h"
-#include "animationtest.h"
 #include "spriteSheet.h"
+#include "obstacles.h"
 
 SDLHelper helper;
 
@@ -12,9 +12,11 @@ int main()
 {
     //Main loop flag
     bool quit = false;
-    SpriteSheet blob_sheet;
-    blob_sheet.loadFromFile("./blob_sprite.png", helper.renderer, 8);
-    AnimationTest blob(&blob_sheet);
+    SpriteSheet obstacle_tiles;
+    obstacle_tiles.loadFromFile("./tiles.png", helper.renderer, 4);
+    Obstacles platforms(&obstacle_tiles);
+    int frame_num = 0;
+    srand(0);
 
     //Event handler
     SDL_Event e;
@@ -38,7 +40,18 @@ int main()
       SDL_RenderClear( helper.renderer);
 
       //Render objects
-      blob.render(helper.renderer);
+      frame_num++;
+      if (not (frame_num & 20)){
+        Obstacles::ObstacleData newPlatform;
+        newPlatform.x = 700;
+        newPlatform.y = rand() % 600;
+        newPlatform.height = 1;
+        newPlatform.length = 3;
+        newPlatform.tile_num = rand() % 4;
+        platforms.addObstacle(newPlatform);
+      }
+      platforms.shiftObstacles(3, 0);
+      platforms.render(helper.renderer);
       //Update screen
       SDL_RenderPresent( helper.renderer);
       SDL_Delay(75);

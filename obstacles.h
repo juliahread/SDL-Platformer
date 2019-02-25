@@ -10,6 +10,7 @@ public:
   Obstacles(SpriteSheet *tileSheet);
   ~Obstacles();
   void render(SDL_Renderer *renderer);
+  void shiftObstacles(int xShift, int yShift);
   struct ObstacleData{
     int x;
     int y;
@@ -17,6 +18,7 @@ public:
     int height; // in tiles
     int tile_num;
   };
+  void addObstacle(ObstacleData data);
 private:
   SpriteSheet *tileSheet;
   std::list<ObstacleData> obstacles;
