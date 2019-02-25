@@ -3,7 +3,6 @@
 #include "obstacles.h"
 #include <list>
 #include <iterator>
-#include <iostream>
 
 Obstacles::Obstacles(SpriteSheet *tileSheetArg){
   tileSheet = tileSheetArg;
@@ -18,7 +17,6 @@ void Obstacles::render(SDL_Renderer *renderer){
   for (it = obstacles.begin(); it != obstacles.end(); ++it){
     renderObstacle(*it, renderer);
   }
-  std::cout << obstacles.size() << std::endl << std::flush;
 }
 
 void Obstacles::renderObstacle(ObstacleData data, SDL_Renderer *renderer){

@@ -41,7 +41,7 @@ int main()
 
       //Render objects
       frame_num++;
-      if (not (frame_num & 20)){
+      if (not (frame_num % 75)){
         Obstacles::ObstacleData newPlatform;
         newPlatform.x = 700;
         newPlatform.y = rand() % 600;
@@ -54,7 +54,7 @@ int main()
       platforms.render(helper.renderer);
       //Update screen
       SDL_RenderPresent( helper.renderer);
-      SDL_Delay(75);
+      SDL_Delay(50);
 
     }
 
