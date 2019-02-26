@@ -7,6 +7,7 @@
 #include "SpriteSheet.h"
 #include "AnimateSprite.h"
 #include "Obstacles.h"
+#include "Background.h"
 
 SDLHelper helper;
 
@@ -22,10 +23,10 @@ int main() {
    * INITIALIZE OBJECTS
    */
 
-  //Background TODO: finish making class
+  //Background
   Texture bg_texture;
   bg_texture.loadFromFile("images/background.png", helper.renderer);
-  int scrollingOffset = 0;
+  Background bg(&bg_texture, 4);
 
   //Character TODO: finish making class
   SpriteSheet character_sheet;
@@ -51,16 +52,12 @@ int main() {
     }
 
     //Clear screen
-    SDL_SetRenderDrawColor( helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-    SDL_RenderClear( helper.renderer );
+    SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(helper.renderer);
 
-    //Scroll and render background
-    scrollingOffset -= 4;
-    if (scrollingOffset < -bg_texture.getWidth()) {
-      scrollingOffset = 0;
-    }
-    bg_texture.render(scrollingOffset, 0, helper.renderer);
-    bg_texture.render(scrollingOffset + bg_texture.getWidth(), 0, helper.renderer);
+    //Render and scroll background
+    bg.render(helper.renderer);
+    bg.scroll();
 
     //Render character
     character.render(bg_texture.getWidth() - 900, bg_texture.getHeight() - 200, helper.renderer);

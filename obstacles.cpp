@@ -11,10 +11,8 @@ Obstacles::Obstacles(SpriteSheet *tileSheetArg) {
   std::list <ObstacleData> obstacles;
 }
 
-//Obstacle destructor
-Obstacles::~Obstacles() {
-  //fill in destructor?
-}
+//Obstacle destructor, nothing to do because everything is on the heap
+Obstacles::~Obstacles() {}
 
 //Iterates through obstacle list and calls renderObstacle
 void Obstacles::render(SDL_Renderer *renderer) {

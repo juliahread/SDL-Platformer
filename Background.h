@@ -12,14 +12,15 @@
  */
 class Background {
   public:
-    Background();
+    Background(Texture* bg_texture, int speed);
     ~Background();
     void render(SDL_Renderer *renderer);
+    void scroll();
   private:
-    Texture* m_bg_texture; //TODO: make list of bg textures
+    Texture* m_bg_texture;
     int m_speed;
-    int m_x;
     int m_y;
+    int m_scrolling_offset;
 };
 
 #endif
