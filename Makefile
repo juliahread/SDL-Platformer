@@ -18,23 +18,23 @@ OBJ_NAME = platformer
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-platformer: platformer.o texture.o SDLHelper.o obstacles.o spriteSheet.o animationTest.o
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) platformer.o texture.o SDLHelper.o obstacles.o spriteSheet.o animationTest.o
+platformer: Platformer.o Texture.o SDLHelper.o Obstacles.o SpriteSheet.o AnimateSprite.o
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) Platformer.o Texture.o SDLHelper.o Obstacles.o SpriteSheet.o AnimateSprite.o
 
-platformer.o: platformer.cpp texture.h SDLHelper.h obstacles.h spriteSheet.h
-	$(CC) -c platformer.cpp
+Platformer.o: Platformer.cpp Texture.h SDLHelper.h Obstacles.h SpriteSheet.h
+	$(CC) -c Platformer.cpp
 
-texture.o: texture.cpp texture.h
-	$(CC) -c texture.cpp
+Texture.o: Texture.cpp Texture.h
+	$(CC) -c Texture.cpp
 
-SDLHelper.o: SDLHelper.cpp SDLHelper.h texture.h
+SDLHelper.o: SDLHelper.cpp SDLHelper.h Texture.h
 	$(CC) -c SDLHelper.cpp
 
-spriteSheet.o: spriteSheet.cpp spriteSheet.h
-	$(CC) -c spriteSheet.cpp
+SpriteSheet.o: SpriteSheet.cpp SpriteSheet.h
+	$(CC) -c SpriteSheet.cpp
 
-animationTest.o: animationTest.cpp animationTest.h
-	$(CC) -c animationTest.cpp
+AnimateSprite.o: AnimateSprite.cpp AnimateSprite.h
+	$(CC) -c AnimateSprite.cpp
 
-obstacles.o: obstacles.cpp obstacles.h
-	$(CC) -c obstacles.cpp
+Obstacles.o: Obstacles.cpp Obstacles.h
+	$(CC) -c Obstacles.cpp

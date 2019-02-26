@@ -1,24 +1,23 @@
-#include "spriteSheet.h"
-#include "texture.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-SpriteSheet::SpriteSheet()
-{
-	//Initialize
+#include "SpriteSheet.h"
+#include "Texture.h"
+
+//SpriteSheet constructor initializes variables
+SpriteSheet::SpriteSheet() {
 	texture = nullptr;
 	spriteWidth = 0;
 	spriteHeight = 0;
 }
 
-SpriteSheet::~SpriteSheet()
-{
-	//Deallocate texture
+//SpriteSheet destructor deallocates texture
+SpriteSheet::~SpriteSheet() {
   texture->~Texture();
 }
 
-bool SpriteSheet::loadFromFile(std::string path, SDL_Renderer* renderer, int num_sprites)
-{
+//Creates SpriteSheet from file given file path
+bool SpriteSheet::loadFromFile(std::string path, SDL_Renderer* renderer, int num_sprites) {
   texture = new Texture();
   bool success = texture->loadFromFile(path, renderer);
   if (success){
@@ -29,19 +28,17 @@ bool SpriteSheet::loadFromFile(std::string path, SDL_Renderer* renderer, int num
   return success;
 }
 
-void SpriteSheet::renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int frameNumber)
-{
+//Renders correct sprite at given position
+void SpriteSheet::renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int frameNumber) {
   int spriteNumber = frameNumber % numSprites;
   SDL_Rect coords = { spriteNumber * spriteWidth, 0, spriteWidth, spriteHeight };
   texture->render(screenX, screenY, renderer, &coords);
 }
 
-int SpriteSheet::getWidth()
-{
+int SpriteSheet::getWidth() {
 	return spriteWidth;
 }
 
-int SpriteSheet::getHeight()
-{
+int SpriteSheet::getHeight() {
 	return spriteHeight;
 }
