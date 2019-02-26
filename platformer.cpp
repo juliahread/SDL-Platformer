@@ -5,9 +5,9 @@
 #include "Texture.h"
 #include "SDLHelper.h"
 #include "SpriteSheet.h"
-#include "AnimateSprite.h"
 #include "Obstacles.h"
 #include "Background.h"
+#include "Character.h"
 
 SDLHelper helper;
 
@@ -28,10 +28,12 @@ int main() {
   bg_texture.loadFromFile("images/background.png", helper.renderer);
   Background bg(&bg_texture, 4);
 
-  //Character TODO: finish making class
+  //Character
   SpriteSheet character_sheet;
   character_sheet.loadFromFile("images/character.png", helper.renderer, 6);
-  AnimateSprite character(&character_sheet, 2);
+  int charX = bg_texture.getWidth() - 900;
+  int charY = bg_texture.getHeight() - 200;
+  Character character(&character_sheet, 2, charX, charY);
 
   //Obstacles
   SpriteSheet obstacle_tiles;
@@ -60,7 +62,7 @@ int main() {
     bg.scroll();
 
     //Render character
-    character.render(bg_texture.getWidth() - 900, bg_texture.getHeight() - 200, helper.renderer);
+    character.render(helper.renderer);
 
     //Render objects
     frame_num++;
