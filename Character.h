@@ -16,14 +16,16 @@ class Character {
     ~Character();
     void render(SDL_Renderer* renderer);
     void jump();
+    SDL_Rect getBoundingBox();
   private:
     SpriteSheet* m_char_sheet;
     int m_speed;
-    int m_x;
-    int m_y;
     int m_ground;
     int m_frame_number;
     int m_iteration;
+    SDL_Rect m_box;
+    bool m_jumping;
+    void doJumping();
 };
 
 #endif

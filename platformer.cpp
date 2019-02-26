@@ -51,6 +51,12 @@ int main() {
       if(e.type == SDL_QUIT) {
         quit = true;
       }
+      else if (e.type == SDL_KEYDOWN) {
+        switch (e.key.keysym.sym) {
+          case SDLK_SPACE:
+            character.jump();
+        }
+      }
     }
 
     //Clear screen
@@ -64,7 +70,7 @@ int main() {
     //Render character
     character.render(helper.renderer);
 
-    //Render objects
+    //Render obstacles
     frame_num++;
     if (not (frame_num % 75)){
       Obstacles::ObstacleData newPlatform;
