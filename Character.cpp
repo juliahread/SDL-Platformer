@@ -15,6 +15,8 @@ Character::Character(SpriteSheet* char_sheet, int speed, int x, int y) {
   m_box.w = char_sheet->getWidth();
   m_box.h = char_sheet->getHeight();
   m_jumping = false;
+  m_acc = 4;
+  m_vel = 0;
 }
 
 //Character destructor, nothing to do because everything is on the heap
@@ -22,9 +24,6 @@ Character::~Character() {}
 
 //Renders correct Character sprite at its position
 void Character::render(SDL_Renderer *renderer) {
-  if (m_jumping) {
-    doJumping();
-  }
   if (m_iteration == m_speed) {
     m_char_sheet->renderSprite(m_box.x, m_box.y, renderer, m_frame_number++);
     m_iteration = 0;
@@ -32,20 +31,37 @@ void Character::render(SDL_Renderer *renderer) {
   else {
     m_char_sheet->renderSprite(m_box.x, m_box.y, renderer, m_frame_number);
   }
-  m_iteration++;
+  if (!m_jumping) {
+    m_iteration++;
+  }
 }
 
 //Character is in jumping state
 void Character::jump() {
   m_jumping = true;
-}
-
-//Update y position of character to animate jump
-void Character::doJumping() {
-  m_box.y--;
+  m_vel = -40;
 }
 
 //Returns bounding box of sprite
 SDL_Rect Character::getBoundingBox() {
   return m_box;
+}
+
+//Update y position of character to animate jump
+void Character::updateY() {
+  if (m_jumping) {
+    m_vel += m_acc;
+    m_box.y += m_vel;
+
+    if (m_box.y >= m_ground) {
+      m_box.y = m_ground;
+      m_jumping = false;
+      m_vel = 0;
+    }
+  }
+}
+
+//Returns true if character is in jumping state
+bool Character::isJumping() {
+  return m_jumping;
 }

@@ -17,6 +17,8 @@ class Character {
     void render(SDL_Renderer* renderer);
     void jump();
     SDL_Rect getBoundingBox();
+    void updateY();
+    bool isJumping();
   private:
     SpriteSheet* m_char_sheet;
     int m_speed;
@@ -25,7 +27,8 @@ class Character {
     int m_iteration;
     SDL_Rect m_box;
     bool m_jumping;
-    void doJumping();
+    float m_vel;
+    float m_acc;
 };
 
 #endif
