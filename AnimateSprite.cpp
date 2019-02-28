@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "spriteSheet.h"
+#include "SpriteSheet.h"
 #include "AnimateSprite.h"
 
 //AnimateSprite constructor takes in a SpriteSheet and speed

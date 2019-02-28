@@ -21,6 +21,7 @@ class SpriteSheet {
     bool loadFromFile( std::string path, SDL_Renderer* renderer, int num_sprites);
     //Renders texture at given point
     void renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
+  void renderSubSprite( int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber, SDL_Rect frame);
     //Gets image dimensions
     int getWidth();
     int getHeight();

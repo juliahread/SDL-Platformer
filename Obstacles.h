@@ -18,13 +18,12 @@ class Obstacles {
     void render(SDL_Renderer *renderer);
     void shiftObstacles(int xShift, int yShift);
     struct ObstacleData{
-      int x;
-      int y;
-      int length; // in tiles
-      int height; // in tiles
+      SDL_Rect box;
       int tile_num;
     };
     void addObstacle(ObstacleData data);
+    void addObstacle(int x, int y, int length, int height, int tile_num);
+  std::list <SDL_Rect*> detectCollisions(SDL_Rect *boundingBox);
   private:
     SpriteSheet *tileSheet;
     std::list<ObstacleData> obstacles;

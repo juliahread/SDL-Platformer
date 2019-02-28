@@ -69,14 +69,20 @@ int main() {
     frame_num++;
     if (not (frame_num % 75)){
       Obstacles::ObstacleData newPlatform;
-      newPlatform.x = helper.getScreenWidth();
-      newPlatform.y = rand() % helper.getScreenHeight();
-      newPlatform.height = 1;
-      newPlatform.length = 3;
+      newPlatform.box.x = helper.getScreenWidth();
+      newPlatform.box.y = rand() % helper.getScreenHeight();
+      newPlatform.box.h = 50 + (rand() % 100);
+      newPlatform.box.w = 50 + (rand() % 200);
       newPlatform.tile_num = rand() % 4;
       platforms.addObstacle(newPlatform);
     }
     platforms.shiftObstacles(3, 0);
+    SDL_Rect test;
+    test.x = 100;
+    test.y = 100;
+    test.w = 100;
+    test.h = 100;
+    platforms.detectCollisions(&test);
     platforms.render(helper.renderer);
 
     //Update screen
