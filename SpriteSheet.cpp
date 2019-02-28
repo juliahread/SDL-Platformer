@@ -35,6 +35,12 @@ void SpriteSheet::renderSprite( int screenX, int screenY, SDL_Renderer* renderer
   texture->render(screenX, screenY, renderer, &coords);
 }
 
+void SpriteSheet::renderSubSprite( int screenX, int screenY, SDL_Renderer* renderer, int frameNumber, SDL_Rect frame) {
+  int spriteNumber = frameNumber % numSprites;
+  SDL_Rect coords = { spriteNumber * spriteWidth, 0, frame.w, frame.h};
+  texture->render(screenX, screenY, renderer, &coords);
+}
+
 int SpriteSheet::getWidth() {
 	return spriteWidth;
 }
