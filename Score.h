@@ -16,6 +16,7 @@ public:
   void render(SDL_Renderer *renderer);
   void update();
   void increase(int points);
+  int getScore();
 private:
   int current_score;
   SpriteSheet *sprite_sheet;

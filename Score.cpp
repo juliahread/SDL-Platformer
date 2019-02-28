@@ -26,3 +26,7 @@ void Score::update(){
 void Score::increase(int points_gained){
   current_score += points_gained;
 }
+
+int Score::getScore(){
+  return current_score;
+}
