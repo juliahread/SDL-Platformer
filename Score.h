@@ -11,7 +11,7 @@
  */
 class Score {
 public:
-  Score(SpriteSheet* score_sheet, SDLHelper helper, int num_digits, int points_per_frame, int x_from_right, int y_from_top);
+  Score(SpriteSheet* score_sheet, int num_digits, int points_per_frame, int x_from_left, int y_from_top);
   ~Score();
   void render(SDL_Renderer *renderer);
   void update();

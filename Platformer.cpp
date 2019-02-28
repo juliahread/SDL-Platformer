@@ -50,9 +50,9 @@ int main() {
 
   //Score
   SpriteSheet score_digits;
-  score_digits.loadFromFile("images/digits.png", helper.renderer, 10);
-  // Score score(&score_digits, helper, 5, 2, 20, 20);
-  std::cout << "made score" << std::endl << std::flush;
+  bool success = score_digits.loadFromFile("images/digits.png", helper.renderer, 10);
+  std::cout << success << std::endl << std::flush;
+  Score score(&score_digits, 3, 2, 20, 20);
 
   //While application is running, game loop
   while(!quit) {
@@ -86,8 +86,8 @@ int main() {
     character.render(helper.renderer);
 
     //update and render score
-    // score.update();
-    // score.render(helper.renderer);
+    score.update();
+    score.render(helper.renderer);
 
     //Render obstacles
     frame_num++;
