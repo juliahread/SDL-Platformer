@@ -2,7 +2,6 @@
 #include <SDL2/SDL_image.h>
 #include <list>
 #include <iterator>
-#include <iostream>
 
 #include "Obstacles.h"
 
@@ -76,7 +75,6 @@ std::list <SDL_Rect*> Obstacles::detectCollisions(SDL_Rect *boundingBox){
       colliding_obstacles.push_back(&(it->box));
     }
   }
-  std::cout << colliding_obstacles.size() << std::endl << std::flush;
   return colliding_obstacles;
 }
 
