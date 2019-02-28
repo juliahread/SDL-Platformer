@@ -5,12 +5,8 @@
 #include "SDLHelper.h"
 #include "Texture.h"
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 1026;
-const int SCREEN_HEIGHT = 540;
-const char* WINDOW_NAME = "platformer";
 
-SDLHelper::SDLHelper() {
+SDLHelper::SDLHelper(const int screen_width, const int screen_height, char* window_name):SCREEN_WIDTH(screen_width), SCREEN_HEIGHT(screen_height), WINDOW_NAME(window_name) {
   bool initialized = SDLHelper::init();
   if (not initialized) {
     throw std::runtime_error("SDLHelper failed to initialize");

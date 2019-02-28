@@ -9,7 +9,11 @@
 #include "Background.h"
 #include "Character.h"
 
-SDLHelper helper;
+const int SCREEN_WIDTH = 1026;
+const int SCREEN_HEIGHT = 540;
+char* WINDOW_NAME = "platformer";
+SDLHelper helper(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
+//Screen dimension constants
 
 int main() {
 
