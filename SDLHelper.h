@@ -7,7 +7,7 @@
 
 /*
  * SDLHelper class
- * TODO: describe what this is
+ * Holds the main window, renderer, and helper functions pertaining to them
  */
 class SDLHelper{
   public:

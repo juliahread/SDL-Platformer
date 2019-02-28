@@ -50,8 +50,7 @@ int main() {
 
   //Score
   SpriteSheet score_digits;
-  bool success = score_digits.loadFromFile("images/digits.png", helper.renderer, 10);
-  std::cout << success << std::endl << std::flush;
+  score_digits.loadFromFile("images/digits.png", helper.renderer, 10);
   Score score(&score_digits, 3, 2, 20, 20);
 
   //While application is running, game loop
@@ -90,17 +89,8 @@ int main() {
     score.render(helper.renderer);
 
     //Render obstacles
-    frame_num++;
-    if (not (frame_num % 75)){
-      Obstacles::ObstacleData newPlatform;
-      newPlatform.box.x = helper.getScreenWidth();
-      newPlatform.box.y = rand() % helper.getScreenHeight();
-      newPlatform.box.h = 50 + (rand() % 100);
-      newPlatform.box.w = 50 + (rand() % 200);
-      newPlatform.tile_num = rand() % 4;
-      platforms.addObstacle(newPlatform);
-    }
-    platforms.shiftObstacles(3, 0);
+    platforms.generateObstacle(50, 200, 100, helper.getScreenWidth(), helper.getScreenHeight());
+    platforms.shiftObstacles(10, 0);
     SDL_Rect test;
     test.x = 100;
     test.y = 100;
@@ -112,7 +102,6 @@ int main() {
     //Update screen
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(50);
-
   }
 
   //Free resources and close SDL

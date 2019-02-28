@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <list>
 #include <iterator>
+#include <algorithm>
 
 #include "Obstacles.h"
 
@@ -9,6 +10,7 @@
 Obstacles::Obstacles(SpriteSheet *tileSheetArg) {
   tileSheet = tileSheetArg;
   std::list <ObstacleData> obstacles;
+  srand(time(0));
 }
 
 //Obstacle destructor
@@ -44,8 +46,8 @@ void Obstacles::shiftObstacles(int xShift, int yShift) {
   for (it = obstacles.begin(); it != obstacles.end(); ++it) {
     it->box.x -= xShift;
     it->box.y -= yShift;
-    if ((it->box.x + tileSheet->getWidth() * it->box.w) < 0 or
-        (it->box.y + tileSheet->getHeight() * it->box.h) < 0) {
+    if ((it->box.x + it->box.w) < 0 or
+        (it->box.y + it->box.h) < 0) {
       it = obstacles.erase(it);
       it--;
     }
@@ -66,6 +68,7 @@ void Obstacles::addObstacle(int x, int y, int width, int height, int tile_num) {
   box.h = height;
   data.tile_num = tile_num;
   data.box = box;
+  addObstacle(data);
 }
 
 std::list <SDL_Rect*> Obstacles::detectCollisions(SDL_Rect *boundingBox){
@@ -76,5 +79,32 @@ std::list <SDL_Rect*> Obstacles::detectCollisions(SDL_Rect *boundingBox){
     }
   }
   return colliding_obstacles;
+}
+
+void Obstacles::generateObstacle(int min_gap, int max_gap, int max_dy, int screen_width, int screen_height){
+  int last_x;
+  int last_y;
+  if (obstacles.empty()){
+    last_x = 0;
+    last_y = screen_height / 2;
+  } else {
+    ObstacleData lastObstacle = *(--obstacles.end());
+    last_x = lastObstacle.box.x + lastObstacle.box.w;
+    last_y = lastObstacle.box.y;
+  }
+  while (last_x <= screen_width){
+    int gap = min_gap + (rand() % (max_gap - min_gap));
+    int new_y = last_y + (rand() % (2 * max_dy)) - max_dy;
+    new_y = std::max(std::min(new_y, screen_height - 100), 100);
+    int width = 50 + (rand() % 200);
+    int height = 50 + (rand() % 100);
+    int tile_num = rand() % 4;
+    addObstacle(last_x + gap, new_y, width, height, tile_num);
+    ObstacleData lastObstacle = *(--obstacles.end());
+    last_x = lastObstacle.box.x + lastObstacle.box.w;
+    last_y = lastObstacle.box.y;
+  }
+
+
 }
 

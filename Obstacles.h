@@ -21,10 +21,11 @@ class Obstacles {
       SDL_Rect box;
       int tile_num;
     };
-    void addObstacle(ObstacleData data);
-    void addObstacle(int x, int y, int length, int height, int tile_num);
+  void generateObstacle(int min_gap, int max_gap, int max_dy, int screen_width, int screen_height);
   std::list <SDL_Rect*> detectCollisions(SDL_Rect *boundingBox);
   private:
+    void addObstacle(ObstacleData data);
+    void addObstacle(int x, int y, int length, int height, int tile_num);
     SpriteSheet *tileSheet;
     std::list<ObstacleData> obstacles;
     void renderObstacle(ObstacleData data, SDL_Renderer *renderer);
