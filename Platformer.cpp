@@ -66,7 +66,9 @@ int main() {
       else if (e.type == SDL_KEYDOWN) {
         switch (e.key.keysym.sym) {
           case SDLK_SPACE:
-            character.jump();
+            if (!character.isJumping()) {
+              character.jump();
+            }
         }
       }
     }
@@ -79,7 +81,8 @@ int main() {
     bg.render(helper.renderer);
     bg.scroll();
 
-    //Render character
+    //Update and render character
+    character.updateY();
     character.render(helper.renderer);
 
     //update and render score
