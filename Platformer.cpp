@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include <iostream>
 
 #include "Texture.h"
 #include "SDLHelper.h"
@@ -8,6 +9,7 @@
 #include "Obstacles.h"
 #include "Background.h"
 #include "Character.h"
+#include "Score.h"
 
 const int SCREEN_WIDTH = 1026;
 const int SCREEN_HEIGHT = 540;
@@ -46,6 +48,12 @@ int main() {
   int frame_num = 0;
   srand(0);
 
+  //Score
+  SpriteSheet score_digits;
+  score_digits.loadFromFile("images/digits.png", helper.renderer, 10);
+  // Score score(&score_digits, helper, 5, 2, 20, 20);
+  std::cout << "made score" << std::endl << std::flush;
+
   //While application is running, game loop
   while(!quit) {
 
@@ -73,6 +81,10 @@ int main() {
 
     //Render character
     character.render(helper.renderer);
+
+    //update and render score
+    // score.update();
+    // score.render(helper.renderer);
 
     //Render obstacles
     frame_num++;
