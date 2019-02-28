@@ -12,15 +12,20 @@
  */
 class Character {
   public:
-    Character(SpriteSheet *charSheet);
+    Character(SpriteSheet* char_sheet, int speed, int x, int y);
     ~Character();
-    void render(SDL_Renderer *renderer);
+    void render(SDL_Renderer* renderer);
     void jump();
+    SDL_Rect getBoundingBox();
   private:
-    Texture* m_bg_texture;
+    SpriteSheet* m_char_sheet;
     int m_speed;
-    int m_x;
-    int m_y;
+    int m_ground;
+    int m_frame_number;
+    int m_iteration;
+    SDL_Rect m_box;
+    bool m_jumping;
+    void doJumping();
 };
 
 #endif

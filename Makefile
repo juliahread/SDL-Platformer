@@ -18,8 +18,8 @@ OBJ_NAME = platformer
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-platformer: Platformer.o Texture.o SDLHelper.o Obstacles.o SpriteSheet.o AnimateSprite.o
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) Platformer.o Texture.o SDLHelper.o Obstacles.o SpriteSheet.o AnimateSprite.o
+platformer: Platformer.o Texture.o SDLHelper.o Obstacles.o SpriteSheet.o Background.o Character.o
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) Platformer.o Texture.o SDLHelper.o Obstacles.o SpriteSheet.o Background.o Character.o
 
 Platformer.o: Platformer.cpp Texture.h SDLHelper.h Obstacles.h SpriteSheet.h
 	$(CC) -c Platformer.cpp
@@ -33,8 +33,11 @@ SDLHelper.o: SDLHelper.cpp SDLHelper.h Texture.h
 SpriteSheet.o: SpriteSheet.cpp SpriteSheet.h
 	$(CC) -c SpriteSheet.cpp
 
-AnimateSprite.o: AnimateSprite.cpp AnimateSprite.h
-	$(CC) -c AnimateSprite.cpp
-
 Obstacles.o: Obstacles.cpp Obstacles.h
 	$(CC) -c Obstacles.cpp
+
+Background.o: Background.cpp Background.h
+	$(CC) -c Background.cpp
+
+Character.o: Character.cpp Character.h
+	$(CC) -c Character.cpp

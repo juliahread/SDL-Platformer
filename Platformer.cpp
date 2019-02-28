@@ -5,8 +5,9 @@
 #include "Texture.h"
 #include "SDLHelper.h"
 #include "SpriteSheet.h"
-#include "AnimateSprite.h"
 #include "Obstacles.h"
+#include "Background.h"
+#include "Character.h"
 
 SDLHelper helper;
 
@@ -22,15 +23,17 @@ int main() {
    * INITIALIZE OBJECTS
    */
 
-  //Background TODO: finish making class
+  //Background
   Texture bg_texture;
   bg_texture.loadFromFile("images/background.png", helper.renderer);
-  int scrollingOffset = 0;
+  Background bg(&bg_texture, 4);
 
-  //Character TODO: finish making class
+  //Character
   SpriteSheet character_sheet;
   character_sheet.loadFromFile("images/character.png", helper.renderer, 6);
-  AnimateSprite character(&character_sheet, 2);
+  int charX = bg_texture.getWidth() - 900;
+  int charY = bg_texture.getHeight() - 200;
+  Character character(&character_sheet, 2, charX, charY);
 
   //Obstacles
   SpriteSheet obstacle_tiles;
@@ -48,24 +51,26 @@ int main() {
       if(e.type == SDL_QUIT) {
         quit = true;
       }
+      else if (e.type == SDL_KEYDOWN) {
+        switch (e.key.keysym.sym) {
+          case SDLK_SPACE:
+            character.jump();
+        }
+      }
     }
 
     //Clear screen
-    SDL_SetRenderDrawColor( helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-    SDL_RenderClear( helper.renderer );
+    SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(helper.renderer);
 
-    //Scroll and render background
-    scrollingOffset -= 4;
-    if (scrollingOffset < -bg_texture.getWidth()) {
-      scrollingOffset = 0;
-    }
-    bg_texture.render(scrollingOffset, 0, helper.renderer);
-    bg_texture.render(scrollingOffset + bg_texture.getWidth(), 0, helper.renderer);
+    //Render and scroll background
+    bg.render(helper.renderer);
+    bg.scroll();
 
     //Render character
-    character.render(bg_texture.getWidth() - 900, bg_texture.getHeight() - 200, helper.renderer);
+    character.render(helper.renderer);
 
-    //Render objects
+    //Render obstacles
     frame_num++;
     if (not (frame_num % 75)){
       Obstacles::ObstacleData newPlatform;
