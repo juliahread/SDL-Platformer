@@ -14,7 +14,6 @@ Obstacles::Obstacles(SpriteSheet *tileSheetArg) {
 
 //Obstacle destructor
 Obstacles::~Obstacles() {
-  //fill in destructor?
 }
 
 //Iterates through obstacle list and calls renderObstacle
@@ -80,6 +79,7 @@ std::list <SDL_Rect*> Obstacles::detectCollisions(SDL_Rect *boundingBox){
   return colliding_obstacles;
 }
 
+//TODO: move magic numbers to member variables and add generate to parent class
 void Obstacles::generateObstacle(int min_gap, int max_gap, int max_dy, int screen_width, int screen_height){
   int last_x;
   int last_y;
@@ -103,7 +103,5 @@ void Obstacles::generateObstacle(int min_gap, int max_gap, int max_dy, int scree
     last_x = lastObstacle.box.x + lastObstacle.box.w;
     last_y = lastObstacle.box.y;
   }
-
-
 }
 

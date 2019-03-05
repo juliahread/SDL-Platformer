@@ -6,12 +6,13 @@
 #include <list>
 
 #include "SpriteSheet.h"
+#include "ScrollableEntity.h"
 
 /*
  * Obstacle class
  * Updates positions of and renders list of Obstacles
  */
-class Obstacles {
+class Obstacles : public ScrollableEntity {
   public:
     Obstacles(SpriteSheet *tileSheet);
     ~Obstacles();

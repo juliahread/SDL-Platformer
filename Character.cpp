@@ -45,8 +45,8 @@ void Character::jump() {
 }
 
 //Returns bounding box of sprite
-SDL_Rect Character::getBoundingBox() {
-  return m_box;
+const SDL_Rect* Character::getBoundingBox() {
+  return &m_box;
 }
 
 //Update y position of character to animate jump

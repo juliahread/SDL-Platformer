@@ -10,6 +10,7 @@
 #include "Background.h"
 #include "Character.h"
 #include "Score.h"
+#include "Coins.h"
 
 const int SCREEN_WIDTH = 1026;
 const int SCREEN_HEIGHT = 540;
@@ -53,6 +54,11 @@ int main() {
   score_digits.loadFromFile("images/digits.png", helper.renderer, 10);
   Score score(&score_digits, 5, 2, false, 20, 20, &helper);
 
+  //Coins
+  SpriteSheet coin_sprites;
+  coin_sprites.loadFromFile("images/coins.png", helper.renderer, 6);
+  Coins coins(&coin_sprites, &score, &helper);
+
   //While application is running, game loop
   while(!quit) {
 
@@ -80,9 +86,16 @@ int main() {
     bg.render(helper.renderer);
     bg.scroll();
 
+    //update coins
+    coins.generateCoin();
+    coins.handleCollisions(character.getBoundingBox());
+    coins.shift(10, 0);
+    coins.render(helper.renderer);
+
     //update and render score
     score.update();
     score.render(helper.renderer);
+
 
     //Update and render character
     character.update(&platforms, 10);

@@ -17,7 +17,7 @@ class Character {
     ~Character();
     void render(SDL_Renderer* renderer);
     void jump();
-    SDL_Rect getBoundingBox();
+    const SDL_Rect* getBoundingBox();
     void update(Obstacles *obstacles, int shift_speed);
     bool isJumping();
     bool isDead();
