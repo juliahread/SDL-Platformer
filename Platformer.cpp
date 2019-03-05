@@ -13,11 +13,13 @@
 
 const int SCREEN_WIDTH = 1026;
 const int SCREEN_HEIGHT = 540;
-char* WINDOW_NAME = "platformer";
+char* WINDOW_NAME = (char *)"platformer";
 SDLHelper helper(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
 //Screen dimension constants
 
 int main() {
+  //seed RNG
+  srand(time(0));
 
   //Main loop flag
   bool quit = false;
@@ -43,10 +45,8 @@ int main() {
 
   //Obstacles
   SpriteSheet obstacle_tiles;
-  obstacle_tiles.loadFromFile("images/tiles.png", helper.renderer, 4);
+  obstacle_tiles.loadFromFile("images/tiles.png", helper.renderer, 3);
   Obstacles platforms(&obstacle_tiles);
-  int frame_num = 0;
-  srand(time(0));
 
   //Score
   SpriteSheet score_digits;
