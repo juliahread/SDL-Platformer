@@ -86,7 +86,7 @@ void Obstacles::generateObstacle(int min_gap, int max_gap, int max_dy, int scree
   int last_y;
   if (obstacles.empty()){
     last_x = 0;
-    last_y = screen_height / 2;
+    last_y = screen_height;
   } else {
     ObstacleData lastObstacle = *(--obstacles.end());
     last_x = lastObstacle.box.x + lastObstacle.box.w;

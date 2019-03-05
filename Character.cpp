@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "Character.h"
+#include "Obstacles.h"
 
 //Character constructor takes in SpriteSheet
 Character::Character(SpriteSheet* char_sheet, int speed, int x, int y) {
@@ -17,6 +18,7 @@ Character::Character(SpriteSheet* char_sheet, int speed, int x, int y) {
   m_jumping = false;
   m_acc = 4;
   m_vel = 0;
+  m_dead = false;
 }
 
 //Character destructor, nothing to do because everything is on the heap
@@ -48,20 +50,41 @@ SDL_Rect Character::getBoundingBox() {
 }
 
 //Update y position of character to animate jump
-void Character::updateY() {
-  if (m_jumping) {
-    m_vel += m_acc;
+void Character::update(Obstacles *obstacles, int shift_speed) {
     m_box.y += m_vel;
+    std::list <SDL_Rect*> obstacles_hit = obstacles->detectCollisions(&m_box);
+    bool on_obstacle = false;
+    int obstacle_height;
+    for (auto it = obstacles_hit.begin(); it != obstacles_hit.end(); it++){
+      SDL_Rect obstacle_hit = *(*it);
+      //check if colliding from the top or side
+      if ((m_box.y + m_box.h - m_vel) < obstacle_hit.y){
+        on_obstacle = true;
+        obstacle_height = obstacle_hit.y;
+      } else if ((m_box.x + m_box.w - shift_speed) < obstacle_hit.x){
+        m_dead = true;
+      }
+    }
 
-    if (m_box.y >= m_ground) {
+
+    if (m_box.y > m_ground) {
       m_box.y = m_ground;
       m_jumping = false;
       m_vel = 0;
+    } else if(on_obstacle){
+      m_box.y = obstacle_height - m_box.h - 1;
+      m_jumping = false;
+      m_vel = 0;
+    } else {
+      m_vel += m_acc;
     }
-  }
 }
 
 //Returns true if character is in jumping state
 bool Character::isJumping() {
   return m_jumping;
+}
+
+bool Character::isDead(){
+  return m_dead;
 }

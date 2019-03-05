@@ -46,7 +46,7 @@ int main() {
   obstacle_tiles.loadFromFile("images/tiles.png", helper.renderer, 4);
   Obstacles platforms(&obstacle_tiles);
   int frame_num = 0;
-  srand(0);
+  srand(time(0));
 
   //Score
   SpriteSheet score_digits;
@@ -80,23 +80,21 @@ int main() {
     bg.render(helper.renderer);
     bg.scroll();
 
-    //Update and render character
-    character.updateY();
-    character.render(helper.renderer);
-
     //update and render score
     score.update();
     score.render(helper.renderer);
 
+    //Update and render character
+    character.update(&platforms, 10);
+    character.render(helper.renderer);
+    if (character.isDead()){
+      quit = true;
+      std::cout << "You died tragically with a total of " << score.getScore() << " points. RIP" << std::endl;
+    }
+
     //Render obstacles
     platforms.generateObstacle(50, 200, 100, helper.getScreenWidth(), helper.getScreenHeight());
     platforms.shiftObstacles(10, 0);
-    SDL_Rect test;
-    test.x = 100;
-    test.y = 100;
-    test.w = 100;
-    test.h = 100;
-    platforms.detectCollisions(&test);
     platforms.render(helper.renderer);
 
     //Update screen

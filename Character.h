@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "SpriteSheet.h"
+#include "Obstacles.h"
 
 /*
  * Character class
@@ -17,8 +18,9 @@ class Character {
     void render(SDL_Renderer* renderer);
     void jump();
     SDL_Rect getBoundingBox();
-    void updateY();
+    void update(Obstacles *obstacles, int shift_speed);
     bool isJumping();
+    bool isDead();
   private:
     SpriteSheet* m_char_sheet;
     int m_speed;
@@ -29,6 +31,7 @@ class Character {
     bool m_jumping;
     float m_vel;
     float m_acc;
+    bool m_dead;
 };
 
 #endif
