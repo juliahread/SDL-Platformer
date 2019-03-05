@@ -15,9 +15,9 @@ class SDLHelper{
     ~SDLHelper();
     SDL_Window *window;
     SDL_Renderer *renderer;
-    int getScreenWidth();
-    int getScreenHeight();
-    char *getWindowName();
+    int getScreenWidth() const;
+    int getScreenHeight() const;
+    char *getWindowName() const;
   private:
     bool init();
     void close();

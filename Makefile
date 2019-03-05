@@ -42,5 +42,5 @@ Background.o: Background.cpp Background.h
 Character.o: Character.cpp Character.h
 	$(CC) -c Character.cpp
 
-Score.o: Score.cpp Score.h  SpriteSheet.h
+Score.o: Score.cpp Score.h  SpriteSheet.h SDLHelper.h
 	$(CC) -c Score.cpp

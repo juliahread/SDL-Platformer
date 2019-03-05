@@ -51,7 +51,7 @@ int main() {
   //Score
   SpriteSheet score_digits;
   score_digits.loadFromFile("images/digits.png", helper.renderer, 10);
-  Score score(&score_digits, 3, 2, 20, 20);
+  Score score(&score_digits, 5, 2, false, 20, 20, &helper);
 
   //While application is running, game loop
   while(!quit) {
@@ -94,7 +94,7 @@ int main() {
 
     //Render obstacles
     platforms.generateObstacle(50, 200, 100, helper.getScreenWidth(), helper.getScreenHeight());
-    platforms.shiftObstacles(10, 0);
+    platforms.shift(10, 0);
     platforms.render(helper.renderer);
 
     //Update screen

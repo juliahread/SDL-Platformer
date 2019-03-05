@@ -2,11 +2,18 @@
 #include <SDL2/SDL_image.h>
 #include "Score.h"
 #include "SpriteSheet.h"
+#include "SDLHelper.h"
 
-Score::Score(SpriteSheet* score_sheet, int num_digits, int points_per_frame, int x_from_left, int y_from_top):sprite_sheet(score_sheet), digits(num_digits), ppf(points_per_frame), x_offset(x_from_left), y_offset(y_from_top){
+Score::Score(SpriteSheet* score_sheet, int num_digits, int points_per_frame, bool measure_from_left, int x_dist, int y_from_top, const SDLHelper *helper):sprite_sheet(score_sheet), digits(num_digits), ppf(points_per_frame), y_offset(y_from_top){
   current_score = 0;
+  if (not measure_from_left){
+    x_offset = helper->getScreenWidth() - (num_digits * score_sheet->getWidth()) - x_dist;
+  } else {
+    x_offset = x_dist;
+  }
 }
-Score::~Score(){}
+Score::~Score(){
+}
 
 void Score::render(SDL_Renderer *renderer){
   int score = current_score;

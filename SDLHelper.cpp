@@ -71,10 +71,14 @@ void SDLHelper::close() {
 	SDL_Quit();
 }
 
-int SDLHelper::getScreenWidth() {
+int SDLHelper::getScreenWidth() const{
   return SCREEN_WIDTH;
 }
 
-int SDLHelper::getScreenHeight() {
+int SDLHelper::getScreenHeight() const{
   return SCREEN_HEIGHT;
+}
+
+char* SDLHelper::getWindowName() const{
+  return WINDOW_NAME;
 }

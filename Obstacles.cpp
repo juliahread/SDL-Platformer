@@ -41,7 +41,7 @@ void Obstacles::renderObstacle(ObstacleData data, SDL_Renderer *renderer) {
 }
 
 //Iterates through obstacles and shifts their positions
-void Obstacles::shiftObstacles(int xShift, int yShift) {
+void Obstacles::shift(int xShift, int yShift) {
   std::list <ObstacleData> :: iterator it;
   for (it = obstacles.begin(); it != obstacles.end(); ++it) {
     it->box.x -= xShift;

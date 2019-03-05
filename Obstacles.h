@@ -16,7 +16,7 @@ class Obstacles {
     Obstacles(SpriteSheet *tileSheet);
     ~Obstacles();
     void render(SDL_Renderer *renderer);
-    void shiftObstacles(int xShift, int yShift);
+    void shift(int xShift, int yShift);
     struct ObstacleData{
       SDL_Rect box;
       int tile_num;
