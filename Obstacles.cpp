@@ -10,7 +10,6 @@
 Obstacles::Obstacles(SpriteSheet *tileSheetArg) {
   tileSheet = tileSheetArg;
   std::list <ObstacleData> obstacles;
-  srand(time(0));
 }
 
 //Obstacle destructor
@@ -85,7 +84,7 @@ void Obstacles::generateObstacle(int min_gap, int max_gap, int max_dy, int scree
   int last_x;
   int last_y;
   if (obstacles.empty()){
-    last_x = 0;
+    last_x = screen_width - 100;
     last_y = screen_height;
   } else {
     ObstacleData lastObstacle = *(--obstacles.end());
