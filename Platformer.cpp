@@ -46,7 +46,7 @@ int main() {
 
   //Obstacles
   SpriteSheet obstacle_tiles;
-  obstacle_tiles.loadFromFile("images/tiles.png", helper.renderer, 3);
+  obstacle_tiles.loadFromFile("images/platforms.png", helper.renderer, 2);
   Obstacles platforms(&obstacle_tiles);
 
   //Score
@@ -86,16 +86,10 @@ int main() {
     bg.render(helper.renderer);
     bg.scroll();
 
-    //update coins
-    coins.generateCoin();
-    coins.handleCollisions(character.getBoundingBox());
-    coins.shift(10, 0);
-    coins.render(helper.renderer);
 
     //update and render score
     score.update();
     score.render(helper.renderer);
-
 
     //Update and render character
     character.update(&platforms, 10);
@@ -109,6 +103,12 @@ int main() {
     platforms.generateObstacle(50, 200, 100, helper.getScreenWidth(), helper.getScreenHeight());
     platforms.shift(10, 0);
     platforms.render(helper.renderer);
+
+    //update coins
+    coins.generateCoin();
+    coins.handleCollisions(character.getBoundingBox());
+    coins.shift(10, 0);
+    coins.render(helper.renderer);
 
     //Update screen
     SDL_RenderPresent(helper.renderer);
