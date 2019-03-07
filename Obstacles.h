@@ -30,6 +30,10 @@ class Obstacles : public ScrollableEntity {
     SpriteSheet *tileSheet;
     std::list<ObstacleData> obstacles;
     void renderObstacle(ObstacleData data, SDL_Renderer *renderer);
+    static constexpr int s_min_height = 50;
+    int m_max_height;
+    static constexpr int s_min_width = 50;
+    static constexpr int s_max_width = 400;
 };
 
 #endif

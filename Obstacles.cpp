@@ -10,6 +10,7 @@
 Obstacles::Obstacles(SpriteSheet *tileSheetArg) {
   tileSheet = tileSheetArg;
   std::list <ObstacleData> obstacles;
+  m_max_height = tileSheet->getHeight();
 }
 
 //Obstacle destructor
@@ -84,7 +85,7 @@ void Obstacles::generateObstacle(int min_gap, int max_gap, int max_dy, int scree
   int last_x;
   int last_y;
   if (obstacles.empty()){
-    last_x = screen_width - 100;
+    last_x = screen_width;
     last_y = screen_height;
   } else {
     ObstacleData lastObstacle = *(--obstacles.end());
@@ -95,9 +96,9 @@ void Obstacles::generateObstacle(int min_gap, int max_gap, int max_dy, int scree
     int gap = min_gap + (rand() % (max_gap - min_gap));
     int new_y = last_y + (rand() % (2 * max_dy)) - max_dy;
     new_y = std::max(std::min(new_y, screen_height - 100), 100);
-    int width = 50 + (rand() % 200);
-    int height = 50 + (rand() % 100);
-    int tile_num = rand() % 4;
+    int width = s_min_width + (rand() % (s_max_width - s_min_width));
+    int height = s_min_height + (rand() % (m_max_height - s_min_height));
+    int tile_num = rand() % 2;
     addObstacle(last_x + gap, new_y, width, height, tile_num);
     ObstacleData lastObstacle = *(--obstacles.end());
     last_x = lastObstacle.box.x + lastObstacle.box.w;
