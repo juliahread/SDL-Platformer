@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "Obstacles.h"
 
+
 //Character constructor takes in SpriteSheet
 Character::Character(SpriteSheet* char_sheet, int speed, int x, int y) {
   m_char_sheet = char_sheet;
@@ -33,7 +34,7 @@ void Character::render(SDL_Renderer *renderer) {
   else {
     m_char_sheet->renderSprite(m_box.x, m_box.y, renderer, m_frame_number);
   }
-  if (!m_jumping) {
+  if (!m_jumping and !m_dead) {
     m_iteration++;
   }
 }
@@ -41,7 +42,7 @@ void Character::render(SDL_Renderer *renderer) {
 //Character is in jumping state
 void Character::jump() {
   m_jumping = true;
-  m_vel = -40;
+  m_vel = s_jump_vel;
 }
 
 //Returns bounding box of sprite
@@ -51,6 +52,7 @@ const SDL_Rect* Character::getBoundingBox() {
 
 //Update y position of character to animate jump
 void Character::update(Obstacles *obstacles, int shift_speed) {
+  if(!m_dead){
     m_box.y += m_vel;
     std::list <SDL_Rect*> obstacles_hit = obstacles->detectCollisions(&m_box);
     bool on_obstacle = false;
@@ -62,6 +64,7 @@ void Character::update(Obstacles *obstacles, int shift_speed) {
         on_obstacle = true;
         obstacle_height = obstacle_hit.y;
       } else if ((m_box.x + m_box.w - shift_speed) < obstacle_hit.x){
+        m_vel = 1.5 * s_jump_vel;
         m_dead = true;
       }
     }
@@ -78,6 +81,10 @@ void Character::update(Obstacles *obstacles, int shift_speed) {
     } else {
       m_vel += m_acc;
     }
+  } else {
+    m_box.y += m_vel;
+    m_vel += 1.5 * m_acc;
+  }
 }
 
 //Returns true if character is in jumping state

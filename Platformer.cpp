@@ -15,6 +15,7 @@
 const int SCREEN_WIDTH = 1026;
 const int SCREEN_HEIGHT = 540;
 char* WINDOW_NAME = (char *)"platformer";
+const int SCROLL_SPEED = 10;
 SDLHelper helper(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
 //Screen dimension constants
 
@@ -78,41 +79,40 @@ int main() {
       }
     }
 
+
+    //Updates:
+    if(!character.isDead()){
+      bg.scroll();
+      score.update();
+      platforms.shift(SCROLL_SPEED, 0);
+      coins.handleCollisions(character.getBoundingBox());
+      coins.shift(SCROLL_SPEED, 0);
+    }
+    character.update(&platforms, SCROLL_SPEED);
+
+    //generate coins and obstacles
+    platforms.generateObstacle(50, 200, 100, helper.getScreenWidth(), helper.getScreenHeight());
+    coins.generateCoin();
+
+
+    //Renders:
     //Clear screen
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
 
-    //Render and scroll background
     bg.render(helper.renderer);
-    bg.scroll();
-
-
-    //update and render score
-    score.update();
     score.render(helper.renderer);
-
-    //Update and render character
-    character.update(&platforms, 10);
     character.render(helper.renderer);
-    if (character.isDead()){
+    platforms.render(helper.renderer);
+    coins.render(helper.renderer);
+
+    SDL_RenderPresent(helper.renderer);
+    SDL_Delay(50);
+
+    if (character.isDead() and character.getBoundingBox()->y > helper.getScreenHeight()){
       quit = true;
       std::cout << "You died tragically with a total of " << score.getScore() << " points. RIP" << std::endl;
     }
-
-    //Render obstacles
-    platforms.generateObstacle(50, 200, 100, helper.getScreenWidth(), helper.getScreenHeight());
-    platforms.shift(10, 0);
-    platforms.render(helper.renderer);
-
-    //update coins
-    coins.generateCoin();
-    coins.handleCollisions(character.getBoundingBox());
-    coins.shift(10, 0);
-    coins.render(helper.renderer);
-
-    //Update screen
-    SDL_RenderPresent(helper.renderer);
-    SDL_Delay(50);
   }
 
   //Free resources and close SDL

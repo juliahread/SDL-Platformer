@@ -32,6 +32,7 @@ class Character {
     float m_vel;
     float m_acc;
     bool m_dead;
+    static constexpr float s_jump_vel = -40;
 };
 
 #endif
